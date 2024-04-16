@@ -12,6 +12,6 @@ if oper >= 1 and oper <= 4:
     elif oper == 4:
         num3 = num1/num2
 
-    print('El resultado es: '+ str(num3))
+    print('El resultado es:', num3)
 else : print('Operación incorrecta')
 
