@@ -1,0 +1,6 @@
+List of members:
+Tom = 18
+Anna = 23
+Mike = 30
+Lucy = 20
+End of list
