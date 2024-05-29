@@ -13,17 +13,24 @@ def div(num1, num2):
     else:
         return num1 / num2
 def ing():
-    return float(input('Ingrese número real: '))
-flag = True
+    num = None
+    while num == None:
+        try:
+            num = float(input('Ingrese número real: '))
+        except ValueError:
+            print('Ingreso incorrecto.\n')
+    return num
 
+opr = None
 n1 = ing()
 n2 = ing()
 operaciones = ['+','-','x','/']
 
-while flag == True:
+while opr == None:
     opr = input(f'Ingrese operación a realizar {operaciones}: ')
-    if opr in operaciones:
-        flag = False
+    if not opr in operaciones:
+        opr = None
+        print('Ingreso incorrecto.\n')
 
 if opr == '+':
     result = suma(n1, n2)
