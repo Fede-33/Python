@@ -13,5 +13,5 @@ personas = [
     {"nombre": "Carlos", "edad": 28},
     {"nombre": "Ana", "edad": 22} 
 ]
-
 for i in personas:
+    print(f"{i['nombre']} tiene {i['edad']} años.")
