@@ -20,3 +20,12 @@ for i in carrito_compras.values():
     total += i
 
 print(f'El total de los productos es {total}')
+
+#Otra forma:
+
+total = 0
+
+for i in carrito_compras.items():
+    total += i[1]
+
+print(f'El total de los productos es {total}')
