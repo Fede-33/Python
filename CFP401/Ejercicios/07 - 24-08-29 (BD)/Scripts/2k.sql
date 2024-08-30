@@ -1,0 +1,1 @@
+SELECT  * FROM ciudades k WHERE poblacion BETWEEN 190000 AND 200000 

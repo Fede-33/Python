@@ -1,0 +1,1 @@
+SELECT * FROM ciudades c WHERE nombre = "Alexandria";

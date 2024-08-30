@@ -1,0 +1,1 @@
+SELECT nombre, codigo_pais, poblacion FROM ciudades b;

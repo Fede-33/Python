@@ -1,0 +1,1 @@
+SELECT * FROM ciudades j WHERE nombre IN ("Buenos Aires", "Rosario", "Bahía Blanca", "Asunción", "Montevideo");
