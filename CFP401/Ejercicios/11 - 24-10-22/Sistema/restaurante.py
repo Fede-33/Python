@@ -1,13 +1,13 @@
 import sqlite3
 
 def crear_bd() :
-    conexion = sqlite3.connect ('restaurante.db')
-    cursor = conexion.cursor()
+    conexion = sqlite3.connect ('restaurante.db') #Conecta con la BD
+    cursor = conexion.cursor() #Crea un objeto (cursor) que sirve para ejecutar comandos SQL
 
     try:
         cursor.execute (''' CREATE TABLE categoria (
                         id INTEGER PRIMARY KEY AUTOINCREMENT, 
-                        nombre VARCHAR(100) UNIQUE NOT NULL)''')
+                        nombre VARCHAR(100) UNIQUE NOT NULL)''') #El cursor ejecuta el código SQL
     except sqlite3.OperationalError:
         print('La Tabla de Categorías ya existe.')
     else:
@@ -30,23 +30,23 @@ def agregar_categoria ():
     cursor = conexion.cursor()
 
     try:
-        cursor.execute("INSERT INTO categoria VALUES (null, '{}')".format(categoria))
+        cursor.execute("INSERT INTO categoria VALUES (null, '{}')".format(categoria)) #Intenta agregar la categoría mediante SQL
     except sqlite3.IntegrityError:
         print("La categoria '{}' ya existe.".format(categoria))
     else:
         print("Categoría '{}' creada correctamente".format(categoria))
     
-    conexion.commit()
-    conexion.close()
+    conexion.commit() #Guarda los cambios en SQL
+    conexion.close() #Cierra la conexión (buena práctica)
 
 def agregar_plato() :
     conexion =sqlite3.connect('restaurante.db')
     cursor = conexion.cursor()
 
-    categorias = cursor.execute ('SELECT * FROM categoria').fetchall()
+    categorias = cursor.execute ('SELECT * FROM categoria').fetchall() #Trae todas las categorías
     print('Selecciona una categoría para añadir el plato: ')
     for categoria in categorias:
-        print('[{}] {}'.format(categoria[0], categoria[1]))
+        print('[{}] {}'.format(categoria[0], categoria[1])) #Muestra las categorías
     
     categoria_usuario = int(input('> '))
 
@@ -78,7 +78,7 @@ def mostrar_menu ():
 # Crear la base de datos
 crear_bd()
 
-# MEnu de opciones del programa
+# Menu de opciones del programa
 while True:
     print("\nBienvenido al gestor del restaurante.")
     opcion = input (
