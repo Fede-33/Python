@@ -70,10 +70,31 @@ def mostrar_menu ():
     for categoria in categorias:
         print(categoria[1])
         platos = cursor.execute("SELECT * FROM plato WHERE categoria_id={}".format(categoria[0])).fetchall()
-    for plato in platos:
-        print("\t{}".format(plato[1]))
+        for plato in platos:
+            print("\t{}".format(plato[1]))
     
     conexion.close()
+
+def eliminar_plato ():
+    conexion = sqlite3.connect('restaurante.db')
+    cursor = conexion.cursor()
+
+    platos = cursor.execute ('SELECT id, nombre FROM plato ORDER BY id ASC ;').fetchall() #Trae todos los platos
+    print('Selecciona el plato a eliminar: ')
+    for plato in platos:
+        print('[{}] {}'.format(plato[0], plato[1])) #Muestra los platos
+    
+    plato_eliminar = int(input('> '))
+
+    try:
+        cursor.execute("DELETE FROM plato WHERE id = '{}'".format(plato_eliminar)) #intenta eliminar el plato
+    except sqlite3.IntegrityError:
+        print("El plato seleccionado no existe.")
+    else:
+        print("Plato '{}' eliminado correctamente".format(platos[plato_eliminar]))
+    
+    conexion.commit() #Guarda los cambios en SQL
+    conexion.close() #Cierra la conexión (buena práctica)    
 
 # Crear la base de datos
 crear_bd()
@@ -86,7 +107,8 @@ while True:
         "\n[1] Agregar categoría" \
         "\n[2] Agregar plato" \
         "\n[3] Mostrar menú" \
-        "\n[4] Salir\n\n>")
+        "\n[4] Eliminar plato"\
+        "\n[5] Salir\n\n>")
     
     if opcion == '1':
         agregar_categoria()
@@ -95,6 +117,8 @@ while True:
     elif opcion == '3':
         mostrar_menu()
     elif opcion == '4':
+        eliminar_plato()
+    elif opcion == '5':
         print ('Adios')
         break
     else:
