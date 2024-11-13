@@ -91,7 +91,76 @@ def eliminar_plato ():
     except sqlite3.IntegrityError:
         print("El plato seleccionado no existe.")
     else:
-        print("Plato '{}' eliminado correctamente".format(platos[plato_eliminar]))
+        print("Plato eliminado correctamente")
+    
+    conexion.commit()
+    conexion.close()
+
+def eliminar_categoria ():
+    conexion = sqlite3.connect('restaurante.db')
+    cursor = conexion.cursor()
+
+    categorias = cursor.execute ('SELECT id, nombre FROM categoria ORDER BY id ASC ;').fetchall() #Trae todas las categorias
+    print('Selecciona la categoría a eliminar: ')
+    for categoria in categorias:
+        print('[{}] {}'.format(categoria[0], categoria[1])) #Muestra las categorías
+    
+    categoria_eliminar = int(input('> '))
+    
+    try:
+        contiene = cursor.execute("SELECT nombre FROM plato WHERE categoria_id = '{}'".format(categoria_eliminar)).fetchall()
+    except sqlite3.IntegrityError:
+            print("La categoría seleccionada no existe.")
+
+    confirma = 'N'
+    
+    if contiene:
+        print('La categoría seleccionada contiene los siguientes platos:')
+        for i in contiene:
+            print(i)
+        print('Si elimina la categoría, se perderán los platos anteriores. ')
+        
+        while confirma != 'S':
+            try:
+                confirma = input('¿Eliminar de todas formas? (S/N) ').upper()
+                if confirma != 'S' and confirma != 'N':
+                    print('Excepción')
+                    raise Exception
+                elif confirma == 'N':
+                    print('break')
+                    break    
+            except :
+                print('Opción incorrecta.')
+        
+    if confirma == 'S':
+        try:
+            cursor.execute("DELETE FROM categoria WHERE id = '{}'".format(categoria_eliminar)) #intenta eliminar el plato
+        except sqlite3.IntegrityError:
+            print("La categoría seleccionada no existe.")
+        else:
+            print("Categoría eliminada correctamente")
+    
+    conexion.commit()
+    conexion.close()
+
+def modificar_plato ():
+    conexion = sqlite3.connect('restaurante.db')
+    cursor = conexion.cursor()
+
+    platos = cursor.execute ('SELECT id, nombre FROM plato ORDER BY id ASC ;').fetchall() #Trae todos los platos
+    print('Selecciona el plato a modificar: ')
+    for plato in platos:
+        print('[{}] {}'.format(plato[0], plato[1])) #Muestra los platos
+    
+    plato_modificar = int(input('> '))
+    nuevo_nombre = input("Ingrese nuevo nombre: ")
+
+    try:
+        cursor.execute("UPDATE plato SET nombre = '{}' WHERE id = '{}'".format(nuevo_nombre, plato_modificar)) #intenta modificar el plato
+    except sqlite3.IntegrityError:
+        print("El plato seleccionado no existe.")
+    else:
+        print("\nPlato '{}' modificado correctamente".format(nuevo_nombre))
     
     conexion.commit() #Guarda los cambios en SQL
     conexion.close() #Cierra la conexión (buena práctica)    
@@ -108,7 +177,9 @@ while True:
         "\n[2] Agregar plato" \
         "\n[3] Mostrar menú" \
         "\n[4] Eliminar plato"\
-        "\n[5] Salir\n\n>")
+        "\n[5] Modificar plato"\
+        "\n[6] Eliminar categoría"\
+        "\n[7] Salir\n\n>")
     
     if opcion == '1':
         agregar_categoria()
@@ -119,6 +190,10 @@ while True:
     elif opcion == '4':
         eliminar_plato()
     elif opcion == '5':
+        modificar_plato()
+    elif opcion == '6':
+        eliminar_categoria()
+    elif opcion == '7':
         print ('Adios')
         break
     else:
