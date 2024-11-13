@@ -106,39 +106,43 @@ def eliminar_categoria ():
         print('[{}] {}'.format(categoria[0], categoria[1])) #Muestra las categorías
     
     categoria_eliminar = int(input('> '))
+    cont = False
     
-    try:
-        contiene = cursor.execute("SELECT nombre FROM plato WHERE categoria_id = '{}'".format(categoria_eliminar)).fetchall()
-    except sqlite3.IntegrityError:
-            print("La categoría seleccionada no existe.")
+    for numero, plato in categorias :
+        if categoria_eliminar == numero:
+            cont = True
+    
+    if cont == True :
 
-    confirma = 'N'
-    
-    if contiene:
-        print('La categoría seleccionada contiene los siguientes platos:')
-        for i in contiene:
-            print(i)
-        print('Si elimina la categoría, se perderán los platos anteriores. ')
+        contiene = cursor.execute("SELECT nombre FROM plato WHERE categoria_id = '{}'".format(categoria_eliminar)).fetchall()
+        confirma = 'N'
         
-        while confirma != 'S':
+        if contiene:
+            print('La categoría seleccionada contiene los siguientes platos:')
+            for i in contiene:
+                print(i)
+            print('Si elimina la categoría, se perderán los platos anteriores. ')
+            
+            while confirma != 'S':
+                try:
+                    confirma = input('¿Eliminar de todas formas? (S/N) ').upper()
+                    if confirma != 'S' and confirma != 'N':
+                        raise Exception
+                    elif confirma == 'N':
+                        break    
+                except :
+                    print('Opción incorrecta.')
+            
+        if confirma == 'S':
             try:
-                confirma = input('¿Eliminar de todas formas? (S/N) ').upper()
-                if confirma != 'S' and confirma != 'N':
-                    print('Excepción')
-                    raise Exception
-                elif confirma == 'N':
-                    print('break')
-                    break    
-            except :
-                print('Opción incorrecta.')
-        
-    if confirma == 'S':
-        try:
-            cursor.execute("DELETE FROM categoria WHERE id = '{}'".format(categoria_eliminar)) #intenta eliminar el plato
-        except sqlite3.IntegrityError:
-            print("La categoría seleccionada no existe.")
-        else:
-            print("Categoría eliminada correctamente")
+                cursor.execute("DELETE FROM categoria WHERE id = '{}'".format(categoria_eliminar)) #intenta eliminar el plato
+            except sqlite3.IntegrityError:
+                print("La categoría seleccionada no existe.")
+            else:
+                print("Categoría eliminada correctamente")
+    
+    else:
+        print('La categoria no existe')
     
     conexion.commit()
     conexion.close()
