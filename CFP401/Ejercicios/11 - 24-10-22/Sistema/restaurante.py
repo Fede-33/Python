@@ -113,10 +113,9 @@ def eliminar_categoria ():
             cont = True
     
     if cont == True :
-
         contiene = cursor.execute("SELECT nombre FROM plato WHERE categoria_id = '{}'".format(categoria_eliminar)).fetchall()
         confirma = 'N'
-        
+       
         if contiene:
             print('La categoría seleccionada contiene los siguientes platos:')
             for i in contiene:
