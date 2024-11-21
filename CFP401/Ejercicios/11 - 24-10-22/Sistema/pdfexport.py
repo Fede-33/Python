@@ -1,5 +1,5 @@
 import sqlite3
-from fpdf import FPDF 
+from fpdf import FPDF  # type: ignore
 
 # Conexión a la base de datos
 conn = sqlite3.connect('restaurante.db')
