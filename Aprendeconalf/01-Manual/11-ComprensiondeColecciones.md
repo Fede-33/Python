@@ -11,8 +11,8 @@ Esa instrucción genera una lista que aplica la expresión a los valores de vari
 ### EJEMPLO:
 Aplicar el cuadrado (expresión) a cada elemento (variable) de un rango (lista) que sean pares (condición):
 
-    [x ** 2 for x in range(10) if x % 2 == 0]
-    >>> [0, 4, 16, 36, 64]
+    >>>[x ** 2 for x in range(10) if x % 2 == 0]
+    [0, 4, 16, 36, 64]
 
 ## COMPRENSIÓN DE DICCIONARIOS:
 
@@ -35,6 +35,6 @@ Dado el siguiente arreglo:
 
 Crear un nuevo arreglo con los alumnos con notas iguales o mayores a 6:
 
-    {nombre: nota for (nombre, nota) in notas.items() if nota >= 6}
-    >>> {'Carmen': 6, 'Juan': 9, 'Mónica': 10, 'María': 7}
+    >>> {nombre: nota for (nombre, nota) in notas.items() if nota >= 6}
+    {'Carmen': 6, 'Juan': 9, 'Mónica': 10, 'María': 7}
 
