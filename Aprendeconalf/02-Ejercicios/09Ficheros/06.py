@@ -36,7 +36,7 @@ def consultar():
             linea = i.split(',')
             if consulta.lower() == linea[0].lower():
                 respuesta = f'el número de {consulta} es: {linea[1]}\n'
-            elif consulta == linea[1]:
+            elif consulta == linea[1].split("\n")[0]:
                 respuesta = f'el número {consulta} corresponde a {linea[0]}\n'
 
     if respuesta :
@@ -66,37 +66,33 @@ def agregar():
         f.write(f'\n{nombre},{tel}')
         print('\n\tTeléfono agregado.\n')
 
-
-
 def eliminar():
     deletear = input('\nIngrese nombre o número a eliminar: ')
-    with open('./archivo_tel/listin.csv', 'w') as f:
+    respaldo = []
+    with open('./archivo_tel/listin.csv', 'r') as f:
         datos = f.readlines()
         respuesta = False
         for i in datos:
             linea = i.split(',')
-            if deletear.lower() == linea[0].lower() or deletear == linea[1]:
+            if deletear.lower() == linea[0].lower() or deletear == linea[1].split("\n")[0]:
                 respuesta = f'el registro de {linea[0]} fue eliminado.\n'
             else:
-                diccionario = {}
+                respaldo.append(f'{linea[0]},{linea[1]}')
     
     if respuesta :
+        os.remove('./archivo_tel/listin.csv')
+        with open('./archivo_tel/listin.csv', 'w') as f:
+            for i in respaldo:
+                f.write(i)
         print(f'\n{respuesta}')
+        
     else :
         print(f'\n{deletear} no se encuentra en la agenda.\n')
 
-
 # EJECUCIÓN:
 if not os.path.isfile('./archivo_tel/listin.csv'):
-    file = open('./archivo_tel/listin.csv', 'w')
-    file.write('nombre,tel')
+    with open('./archivo_tel/listin.csv', 'w') as f:
+        f.write('nombre,tel')
 
 while True:
     operador(menu())
-
-
-    
-    
-
-
-
