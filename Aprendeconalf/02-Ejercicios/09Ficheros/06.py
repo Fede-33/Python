@@ -32,12 +32,14 @@ def consultar():
     with open('./archivo_tel/listin.csv', 'r') as f:
         datos = f.readlines()
         respuesta = False
-        for i in datos:
-            linea = i.split(',')
-            if consulta.lower() == linea[0].lower():
-                respuesta = f'el número de {consulta} es: {linea[1]}\n'
-            elif consulta == linea[1].split("\n")[0]:
-                respuesta = f'el número {consulta} corresponde a {linea[0]}\n'
+        for i in range(1, len(datos)):
+            linea = datos[i].split(',')
+            nombre = linea[0]
+            tel = linea[1].split("\n")[0]
+            if consulta.lower() == nombre.lower():
+                respuesta = f'el número de {consulta} es: {tel}\n'
+            elif consulta == tel:
+                respuesta = f'el número {consulta} corresponde a {nombre}\n'
 
     if respuesta :
         print(f'\n{respuesta}')
@@ -63,27 +65,29 @@ def agregar():
             print(e)
         
     with open('./archivo_tel/listin.csv', 'a') as f:
-        f.write(f'\n{nombre},{tel}')
+        f.write(f'{nombre},{tel}\n')
         print('\n\tTeléfono agregado.\n')
 
 def eliminar():
     deletear = input('\nIngrese nombre o número a eliminar: ')
-    respaldo = []
+    respaldo = ['nombre,tel']
     with open('./archivo_tel/listin.csv', 'r') as f:
         datos = f.readlines()
         respuesta = False
-        for i in datos:
-            linea = i.split(',')
-            if deletear.lower() == linea[0].lower() or deletear == linea[1].split("\n")[0]:
+        for i in range(1, len(datos)):
+            linea = datos[i].split(',')
+            nombre = linea[0]
+            tel = linea[1].split("\n")[0]
+            if deletear.lower() == nombre.lower() or deletear == tel:
                 respuesta = f'el registro de {linea[0]} fue eliminado.\n'
             else:
-                respaldo.append(f'{linea[0]},{linea[1]}')
+                respaldo.append(f'{nombre},{tel}')
     
     if respuesta :
         os.remove('./archivo_tel/listin.csv')
         with open('./archivo_tel/listin.csv', 'w') as f:
             for i in respaldo:
-                f.write(i)
+                f.write(f'{i}\n')
         print(f'\n{respuesta}')
         
     else :
@@ -92,7 +96,7 @@ def eliminar():
 # EJECUCIÓN:
 if not os.path.isfile('./archivo_tel/listin.csv'):
     with open('./archivo_tel/listin.csv', 'w') as f:
-        f.write('nombre,tel')
+        f.write('nombre,tel\n')
 
 while True:
     operador(menu())
