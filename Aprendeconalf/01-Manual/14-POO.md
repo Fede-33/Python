@@ -1,7 +1,6 @@
 # PROGRAMACIÓN ORIENTADA A OBJETOS
 
-Es un paradigma de programación en la que los datos y las operaciones que pueden realizarse con esos datos se agrupan en unidades lógicas llamadas **objetos**.
-Suelen representar etidades del programa, y están conformados por **atributos** y **métodos**. 
+Es un paradigma de programación en la que los datos y las operaciones que pueden realizarse con esos datos se agrupan en unidades lógicas llamadas **objetos**. Estos suelen representar etidades del programa, y están conformados por **atributos** y **métodos**. Cada objeto será una instancia de una clase, que son modelos de las entidades identificadas.
 
 ### Atributos
 Son la parte estática del objeto, y describen sus características.
@@ -143,3 +142,92 @@ El método especial *_ _ str _ _* permite crear un mensaje predeterminado para d
     Tarjeta número 0123456789 con saldo 1000.00€
 
 ## HERENCIA
+
+Es un método que permite crear una clase en base a otra existente, pero la nueva clase será una especialización de la anterior. Es decir, que la *clase hija* tendrá los mismos atributos y métodos de la *clase madre*, pero agregará algunos propios. Para crear una *clase hija*, se utiliza la misma sintaxis que para crear una clase normal, pero se especifica entre paréntesis la *clase madre*.
+
+    >>> class Tarjeta:
+        def __init__(self, id, cantidad = 0):
+            self.id = id
+            self.saldo = cantidad
+            return
+        def mostrar_saldo(self):       # Método de la clase Tarjeta 
+            print('El saldo es',  self.saldo, '€.')
+            return
+
+    >>> class Tarjeta_descuento(Tarjeta):       # La clase hija heredará el método mostrar_saldo()
+        def __init__(self, id, descuento, cantidad = 0):
+            self.id = id
+            self.descuento = descuento
+            self.saldo = cantidad
+            return
+        def mostrar_descuento(self):   # Método exclusivo de la clase Tarjeta_descuento
+            print('Descuento de', self.descuento, '% en los pagos.')
+            return
+
+    >>> t = Tarjeta_descuento('0123456789', 2, 1000)
+    >>> t.mostrar_saldo()
+    El saldo es 1000 €.
+    >>> t.mostrar_descuento()
+    Descuento de 2 % en los pagos.
+
+La Herencia evita la repetición de código. En el ejemplo anterior, cualquier cambio que se realice en la clase *Tarjeta* se heredará a la clase hija.
+
+### Jerarquía de clases
+
+Las sucesivas herencias entre clases dan lugar a un orden jerárquico, similar a un árbol genealógico, siempre considerando las *clases madre* y las sucesivas *clases hija*. De esta manera, cualquier objeto creado a partir de una clase, es una instancia de esa clase y de todas las que sean ancestros de ella misma. Para saber si un objeto es instancia (hijo) de una clase, se puede ejecutar el comando:
+
+    isinstance (objeto, clase)
+
+Especificando el nombre del objeto y de la clase que se desea consultar, retornando *True* o *False*. En el siguiente ejemplo, se instancian dos objetos (t1 y t2) de las clases Tarjeta y Tarjeta_descuento, y luego se consulta si cada objeto es instancia de cada clase:
+
+    >>> t1 = Tarjeta('1111111111', 0)
+    >>> t2 = t = Tarjeta_descuento('2222222222', 2, 1000)
+    >>> isinstance(t1, Tarjeta)
+    True
+    >>> isinstance(t1, Tarjeta_descuento)
+    False
+    >>> isinstance(t2, Tarjeta_descuento)
+    True
+    >>> isinstance(t2, Tarjeta)
+    True
+
+### Sobrecarga y polimorfismo
+
+Se conoce como **Sobrecarga** a la posibilidad de que la *clase hija* reescriba y modifique los métodos de la *clase madre*. Esto produce el efecto de **Polimorfismo**, que sucede cuando un mismo método tiene distinto comportamiento según se invoque en la *clase madre* o en la *clase hija*. Por ejemplo:
+
+    >>> class Tarjeta:
+        def __init__(self, id, cantidad = 0):
+            self.id = id
+            self.saldo = cantidad
+            return
+        def mostrar_saldo(self):
+            print('El saldo es {:.2f}€.'.format(self.saldo))
+            return
+        def pagar(self, cantidad):
+            self.saldo -= cantidad
+            return
+    >>> class Tarjeta_Oro(Tarjeta):
+        def __init__(self, id, descuento, cantidad = 0):
+            self.id = id
+            self.descuento = descuento
+            self.saldo = cantidad
+            return
+        def pagar(self, cantidad):
+            self.saldo -= cantidad * (1 - self.descuento / 1...00)
+    >>> t1 = Tarjeta('1111111111', 1000)
+    >>> t2 = Tarjeta_Oro('2222222222', 1, 1000)
+    >>> t1.pagar(100)
+    >>> t1.mostrar_saldo()
+    El saldo es 900.00€.
+    >>> t2.pagar(100)
+    >>> t2.mostrar_saldo()
+    El saldo es 901.00€.
+
+## PRINCIPIOS DEL POO
+
+* **Encapsulación:** Agrupar datos (atributos) y procedimientos (métodos) en unidades lógicas (objetos) no accedeiendo directamente a ellos para evitar manipulación, sino que se acceden mediante métodos.
+* **Abstracción:** Ocultar al usuario los detalles de los métodos. El sabe qué hace un método y con qué parámetros invocarlo (interfaz), pero no necesita saber cómo lo hace.
+* **Herencia:** Evitar la duplicación de código en clases con comportamientos similares, definiendo los métodos comunes en una clase madre y los métodos particulares en clases hijas.
+* **Polimorfismo:** Redefinir los métodos de la clase madre en las clases hijas cuando se requiera un comportamiento distinto. 
+
+
