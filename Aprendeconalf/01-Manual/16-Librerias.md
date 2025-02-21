@@ -813,8 +813,8 @@ Se puede hacer a través de posiciones o a través de los nombres de las filas y
 
 * **Añadir columnas:** Similar al de añadir un nuevo par a un diccionario, pero pasando los valores de la columna en una lista o serie.
 
-    * **d[nombre] = lista** Añade al DataFrame *df* una nueva columna llamada *nombre* y los valores de *lista*. La *lista* debe tener el mismo tamaño que el número de filas de *df*.    
-    * **d[nombre] = serie** Añade al DataFrame *df* una nueva columna llamada *nombre* y los valores de *serie*. Si el tamaño de *serie* es menor que el número de filas de *df* se rellena con valores NaN mientras que si es mayor se recorta.
+    * **df[nombre] = lista** Añade al DataFrame *df* una nueva columna llamada *nombre* y los valores de *lista*. La *lista* debe tener el mismo tamaño que el número de filas de *df*.    
+    * **df[nombre] = serie** Añade al DataFrame *df* una nueva columna llamada *nombre* y los valores de *serie*. Si el tamaño de *serie* es menor que el número de filas de *df* se rellena con valores NaN mientras que si es mayor se recorta.
 
                 >>> import pandas as pd
                 >>> df = pd.read_csv(
@@ -929,7 +929,7 @@ Se puede hacer a través de posiciones o a través de los nombres de las filas y
 
 * **Eliminar columnas:** 
 
-    * **del d[nombre]** Elimina la columna con nombre nombre del DataFrame df.
+    * **del df[nombre]** Elimina la columna con nombre nombre del DataFrame df.
     * **df.pop(nombre)** Elimina la columna con nombre nombre del DataFrame df y la retorna como una serie.
 
                 >>> import pandas as pd
