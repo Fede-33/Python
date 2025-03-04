@@ -1,0 +1,10 @@
+> git clone https://github.com/asalberceu/examen-fundamentos-programacion-2019-03-27-A.git
+> cd examen-fundamentos-programacion-2019-03-27-A
+> git checkout -b SANCHEZ-ALBERCA
+> mkdir respuestas
+> git diff HEAD~1 > respuestas/ejercicio1.3.txt
+> git add .
+> git commit -m "Añadida respuesta ejercicio 1.3"
+> git log --oneline --all > respuestas/ejercicio1.5.txt
+> git add .
+> git commit -m "Añadida respuesta ejercicio 1.5"

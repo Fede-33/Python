@@ -1,0 +1,8 @@
+> git clone https://github.com/asalberceu/examen-fundamentos-computadores-2019-05-27-parcial1.git
+> cd examen-fundamentos-computadores-2019-05-27-parcial1.git
+> git checkout -b SANCHEZ-ALBERCA
+> git annotate ejercicio2.py > ejercicio1.3.txt
+> git diff afce5 b4a76 > ejercicio1.4.txt
+> git status > ejercicio1.5.txt
+> git add . 
+> git commit -m "Añadida respuestas."
