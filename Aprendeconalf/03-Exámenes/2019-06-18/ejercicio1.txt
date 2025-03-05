@@ -1,0 +1,8 @@
+> git clone https://github.com/asalberceu/examen-fundamentos-computadores-2019-06-18-parcial1.git
+> cd examen-fundamentos-computadores-2019-06-18-parcial1.git
+> git checkout -b SANCHEZ-ALBERCA
+> git log --oneline > ejercicio1.3.txt
+> git diff f9ed835 a485ced > ejercicio1.4.txt
+> git remote -v > ejercicio1.5.txt
+> git add . 
+> git commit -m "Añadida respuestas."
