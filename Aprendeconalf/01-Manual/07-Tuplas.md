@@ -6,7 +6,7 @@ Una tupla es una secuencia ordenadas de objetos de distintos tipos. Se usan habi
 * Pueden contener elementos de distintos tipos.
 * Son inmutables, es decir, no pueden alterarse durante la ejecución de un programa.
 
-#CREACIÓN:
+## CREACIÓN:
 
 Se construyen poniendo los elementos entre paréntesis ( ) separados por comas.
 
