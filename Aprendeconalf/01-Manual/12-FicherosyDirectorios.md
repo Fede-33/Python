@@ -116,7 +116,7 @@ Se abre el fichero contenido en el *path*, espedificando el *modo* ('w', 'a', 'r
     >>> with open('saludo.txt', 'w') as f:
     ...     f.write("Hola de nuevo")
      
-    13
+    
     >>> with open('saludo.txt', 'r') as f:
     ...     print(f.read())
      

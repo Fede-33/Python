@@ -143,5 +143,3 @@ else:
         return plt.show()
     
     print(grafico_medias_mensuales_por_area(df, '12'))
-
-print(df)
