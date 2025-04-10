@@ -100,7 +100,7 @@ Se utilizan los mismos operadores de acceso que para cadenas de caracteres, medi
 * **l.extend(sequencia)** Añade los datos de *sequencia* al final de la lista *l*.
 * **l.insert(índice, dato)** Inserta *dato* en la posición *índice* de la lista *l* ydesplaza los elementos una posición a partir de la posición *índice*.
 * **l.remove(dato)** Elimina el primer elemento con valor *dato* en la lista *l* y desplaza los que están por detrás de él una posición hacia delante.
-* **l.pop([índice])** Devuelve el dato en la posición *índice* y lo elimina de lalista *l*, desplazando los elementos por detrás de él una posición hacia delante.
+* **l.pop([índice])** Devuelve el dato en la posición *índice* y lo elimina de la lista *l*, desplazando los elementos por detrás de él una posición hacia delante.
 * **l.sort()** Ordena los elementos de la lista *l* de acuerdo al orden predefinido, siempre que los elementos sean comparables.
 * **l.reverse()** invierte el orden de los elementos de la lista *l*.
 
