@@ -4,6 +4,6 @@ def sumar (*args):
         suma += i
     return suma
 
-restar = lambda a,b:a-b
+restar = lambda a , b:a-b
 
 potenciar = lambda a, b: a**b

@@ -1,0 +1,21 @@
+from productos import *
+
+pcgamer = Pc_Gamer()
+pcgamer.pant()
+pcgamer.ram()
+pcgamer.cpu()
+pcgamer.touch()
+pcgamer.resol()
+pcgamer.mouse()
+pcgamer.teclado()
+pcgamer.parlantes()
+
+lapt = Msi()
+lapt.pant()
+lapt.ram()
+lapt.cpu()
+lapt.touch()
+lapt.resol()
+lapt.mouse()
+lapt.teclado()
+lapt.parlantes()
