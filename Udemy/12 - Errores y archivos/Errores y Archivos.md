@@ -82,6 +82,86 @@ Si es posible que se produzca más de una excepción, deberían intentarse subsa
 
 En el ejemplo se trata de gestionar el error de ingreso de un valor no numérico, luego del error matemático de la división por 0, y finalmente de la excepción lanzada como *Opción incorrecta*.
 
+#### CREAR EXCEPCIONES:
+Tal como se ha dicho, las excepciones son clases hijas de la clase *Exception*. Es posible entonces definir excepciones personalizadas por el usuario mediante la sintaxis de clases:
+
+    class OperadorExcepcion(Exception):
+        def __init__(self, mensaje):
+            super().__init__(mensaje)
+    
+    def dividir(a, b):
+        if b == 0:
+            raise OperadorExcepcion('Error: No se puede dividir por 0')
+        else:
+            return a / b
+    
+    dividir(4,0)
+
+En este caso, se crea la excepción y se lanza al llamar a la función. No se está atrapando ni gestionando la excepción. El programa finalizará con la excepción definida por el usuario.
+
 # ARCHIVOS
 
 El manejo de archivos o ficheros es un principio de la *persistencia de datos*, es decir, que cuando es necesario reutilizar los datos, como en una base de datos, se deberán almacenar en otros archivos, no tan solo en variables locales de programa.
+
+## GESTIÓN DE ARCHIVOS:
+Para trabajar con archivos se importará la función *open* de la librería *io*. Siempre es conveniente invocar la función *open()* dentro de un módulo personalizado con otras funciones específicas de acuerdo al modo de apertura deseado, entre los que encontramos:
+
+### **'w'** CREACIÓN Y ESCRITURA.
+
+    from io import open
+
+    def escribir_archivo(nombre, texto):
+        archivo = open(nombre, 'w')
+        archivo.write(texto)
+        archivo.close()
+        return 'Archivo creado.\n'
+
+Esta función creará un archivo nuevo y escribirá dentro del mismo. Si lo que se busca es borrar el contenido completo de un archivo, se invoca esta función con texto vacío, y eso reescribirá el contenido, en este caso, eliminándolo aparentemente.
+
+### **'r'** SOLO LECTURA.
+
+    from io import open
+
+    def leer_archivo(nombre):
+        archivo = open(nombre, 'r')
+            texto = archivo.read()
+        archivo.close()
+        return f'\n{nombre}:\n{texto}\n'
+        
+### **'r+'** LECTURA Y ESCRITURA.
+
+    from io import open
+
+    def modificar_archivo(nombre):
+        archivo = open(nombre, 'r+')
+        print(f'\n{nombre}:\n{archivo.read()}\n')
+        texto = input('Ingrese nuevo texto: ')
+        archivo.seek(0)
+        archivo.write(texto)
+        archivo.close()
+        return'Archivo modificado.\n'
+
+La modificación de texto puede personalizarse tanto si se trabaja el contenido del archivo como un string o como listas mediante el método *readlines()* y *writelines()*. Para esto se utiliza el método *seek()* que permite indicar la posición del cursor donde es necesario leer o escribir. En este ejemplo, el cursos se posiciona en 0, es decir, al comienzo del string que recupera el archivo. 
+
+### **'a'** CREACIÓN O ACTUALIZACIÓN.
+
+    from io import open
+
+    def actualizar_archivo(nombre, texto):
+        archivo = open(nombre, 'a')
+        archivo.write(texto)
+        archivo.close()
+        return'Archivo actualizado.\n'
+
+### COMPROBAR ARCHIVO:
+Para comprobar la existencia de un archivo se utiliza el módulo *path* de la librería *os* que permite interactuar con el sistema:
+
+    from os import path
+    
+    def existe_archivo(nombre):
+        if path.isfile(nombre):
+            return True
+        else:
+            return False
+
+Esta función práctica puede definirse para invocarla antes de realizar cualquier otro trabajo con archivos. Se comprueba la existencia del mismo, en base a eso, se procede a su escritura, reescritura, letcura, etc. Evita tener que gestionar excepciones del tipo *FileNotFoundError*. 
