@@ -151,3 +151,42 @@ Se deberá definir un método dentro de la clase Constructor que defina la propi
 Este método podrá ser llamado cuando se ejecute el disparador de la acción, por ejemplo en el parámetro *command* de un botón.
 
 ### TABLAS:
+Para la creación de una estructura jerarquizada como una tabla se recomienda utilizar el módulo *ttk* de *tkinter*, y particularmente la función *Treeview*. Requiere se especifiquen las columnas que se mostrarán, teniendo en cuenta que *Treeview* automáticamente creará una columna predeterminada inicial, y también que se defina la posición dentro del widget mediante *.grid*. Luego, mediante el método *.heading()* se especificará el título de cada una de las columnas. 
+
+En el siguiente ejemplo, también se inserta en la tabla un elemento para mostrar, mediante el método *.insert()*. En este caso el primer argumento es una cadena vacía, si fuera un sub elemento debería ingresarse su elemento padre, el siguiente argumento es 0 para indicar que ocupa el primer lugar, luego *text='1'* mostrará el número 1 en la columna ID, predeterminada de *Treeview*, y los values serán los que se asignarán a las columnas definidas:
+
+    from tkinter import ttk
+
+    def tabla_peliculas(self):
+        self.tabla = ttk.Treeview(self, column=('Nombre', 'Duración', 'Género'))
+        self.tabla.grid(row=5, column=0, columnspan=4)
+
+        self.tabla.heading('#0',text='ID')
+        self.tabla.heading('#1',text='NOMBRE')
+        self.tabla.heading('#2',text='DURACIÓN')
+        self.tabla.heading('#3',text='GENERO')
+        
+        self.tabla.insert('',0,text='1', values = ('Vengadores','2.35', 'Acción'))
+
+### SCROLLBAR:
+Para incluir una barra de navegación lateral puede utilizarse la clase *.Scrollbar* de la librería *ttk*, en el siguiente caso incluyendo una barra de navegación vertical, especificando el espesor, la orientación, y la ubicación.
+        
+    style.configure("Vertical.TScrollbar", width=30)
+    self.scroll = ttk.Scrollbar(self, orient='vertical', command=self.tabla.yview)
+    self.scroll.grid(row=5, column=3, sticky='ns') 
+    self.tabla.configure(yscrollcommand=self.scroll.set)
+
+### MENSAJES:
+Para mostrar una ventana emergente con un mensaje al usuario puede utilizarse el módulo *messagebox* de tkinter. El mismo puede mostrar tres tipos de mensajes, informativo(.showinfo), error (.showerror) y advertencia (.showwarning). Dentro de cada uno de esos modos, deben ingresarse los parámetros del título y el mensaje de la ventana.
+
+En el siguiente ejemplo se define una función que recibe un tipo de ventana, un título y un mensaje, y evaluando el tipo de mensaje, muestra la ventana del modo correspondiente: 
+
+    from tkinter import messagebox 
+
+    def emergente(tipo, titulo, mensaje):
+        if tipo == 'info':
+            messagebox.showinfo(titulo, mensaje)
+        elif tipo == 'error':
+            messagebox.showerror(titulo, mensaje)
+        elif tipo == 'warning':
+            messagebox.showwarning(titulo, mensaje)
