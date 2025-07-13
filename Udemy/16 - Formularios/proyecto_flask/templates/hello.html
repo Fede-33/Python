@@ -1,0 +1,13 @@
+{%extends 'base.html' %}
+
+{%block title%} Trabajando con datos {%endblock%}
+    
+{%block content %}
+    {% if my_data['name'] == None and my_data['age'] == None: %}
+            <p>Hola mundo.</p>
+    {% elif my_data['age'] == None: %}
+            <p>Hola {{my_data['name']}}.</p> 
+    {% else: %}
+           <p>Hola {{my_data['name']}}, tienes {{my_data['age']}} años. Correo: {{my_data['email']}}</p> 
+    {% endif %}
+{%endblock%}
